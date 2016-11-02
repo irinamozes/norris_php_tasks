@@ -1,6 +1,6 @@
 <?php
 $str = 'да полевеет правая нога';
-echo $str."\n";
+echo $str."<br>";
 $arr_str = explode(" ", $str);
 print_r($arr_str);
 

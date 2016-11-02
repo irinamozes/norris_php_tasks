@@ -29,6 +29,6 @@ $cars = [
 
 foreach ($cars as $i => $value) {
     echo "CAR $i\n";
-    echo $value["model"].' - '.$value["speed"].' - '.$value["doors"].' - '.$value["year"]."\n";
+    echo $value["model"].' - '.$value["speed"].' - '.$value["doors"].' - '.$value["year"]."<br>";
 }
 ?>
