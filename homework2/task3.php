@@ -8,50 +8,45 @@ function calcEverything()
 
     array_splice($arr_num, 0, 1);
 
+    foreach ($arr_num as $value) {
+        if (is_float($value) or is_int($value)) {
+        } else {
+            echo "Элемент $value  не является числом. Некорректный ввод даных массива<br>";
+            return;
+        }
+    }
+
+    $len = count($arr_num);
+    $total = $arr_num[0];
+
     switch ($str_operation) {
         case '+':
-            function rsum($v, $w)
-            {
-                $v += $w;
-                return $v;
+            for ($i = 1; $i < $len; $i++) {
+                $total = $total + $arr_num[$i];
             }
-
-            $arr_num_pl = array_reduce($arr_num, "rsum");
-            print_r($arr_num_pl);
+            echo $total;
             break;
 
         case '-':
-            function rsubtr($v, $w)
-            {
-                $v = $v - $w;
-                return $v;
-            }
-
-            $arr_num_min = array_reduce($arr_num, "rsubtr", $arr_num[1]);
-            print_r($arr_num_min);
-            break;
+             for ($i = 1; $i < $len; $i++) {
+                 $total = $total - $arr_num[$i];
+             }
+             echo $total;
+             break;
 
 
         case '*':
-            function rmul($v, $w)
-            {
-                $v = $v * $w;
-                return $v;
+            for ($i = 1; $i < $len; $i++) {
+                $total = $total * $arr_num[$i];
             }
-
-            $arr_num_mul = array_reduce($arr_num, "rmul", $arr_num[0]);
-            print_r($arr_num_mul);
+            echo $total;
             break;
 
         case '/':
-            function rdiv($v, $w)
-            {
-                $v /= $w;
-                return $v;
+            for ($i = 1; $i < $len; $i++) {
+                $total = $total / $arr_num[$i];
             }
-
-            $arr_num_div = array_reduce($arr_num, "rdiv", $arr_num[0]);
-            print_r($arr_num_div);
+            echo $total;
             break;
 
         default:
@@ -60,6 +55,6 @@ function calcEverything()
     }
 
 }
-    calcEverything('/', 1, 2, 3, 5.2);
+    calcEverything('*', 2, 4, 6, 8);
 
 ?>

@@ -1,69 +1,58 @@
 <?php
 $arr_number = array(1, 2, 3, 4, 5);
-$arith_exp = '@2';
+$arith_exp = '/';
 
-function array_print($arr, $str)
+function array_print($arr, $str_operation)
 {
-    $str_operation = substr($str, 0, 1);
 
-    $str_number = substr($str, 1);
+    foreach ($arr as $value) {
+        if (is_float($value) or is_int($value)) {
 
-    $tf_number = ctype_digit($str_number);
+        } else {
+            echo "Элемент $value  не является числом. Некорректный ввод даных массива<br>";
 
-    if ($tf_number === FALSE) {
-        $str_operation = '!';
+            return;
+        }
     }
+
+    $len = count($arr);
+    $total = $arr[0];
 
     switch ($str_operation) {
         case '+':
-            foreach ($arr as $value) {
-                $value = $value + $str_number;
-                echo $value . "<br>";
+            for ($i = 1; $i < $len; $i++) {
+                $total = $total + $arr[$i];
             }
+            echo $total;
             break;
 
+
         case '-':
-            foreach ($arr as $value) {
-                $value = $value - $str_number;
-                echo $value . "<br>";
+            for ($i = 1; $i < $len; $i++) {
+                $total = $total - $arr[$i];
             }
+            echo $total;
             break;
 
         case '*':
-            foreach ($arr as $value) {
-                $value = $value * $str_number;
-                echo $value . "<br>";
+            for ($i = 1; $i < $len; $i++) {
+                $total = $total * $arr[$i];
             }
+            echo $total;
             break;
 
         case '/':
-            foreach ($arr as $value) {
-                $value = $value * $str_number;
-                echo $value . "<br>";
+            for ($i = 1; $i < $len; $i++) {
+                $total = $total / $arr[$i];
             }
+            echo $total;
             break;
-
-        case '%':
-        foreach ($arr as $value) {
-            $value = $value % $str_number;
-            echo $value . "<br>";
-        }
-            break;
-
-        case '^':
-        foreach ($arr as $value) {
-            $value = $value ** $str_number;
-            echo $value . "<br>";
-        }
-        break;
 
         default:
-            echo "Неправильный формат строки с арифметическим действием" . "<br>";
+            echo "Неправильный формат строки со знаком арифметической операции" . "<br>";
             echo "Правильный формат: " . "<br>";
-            echo "Первый символ - знак арифметической операции, один из следующих: " . "<br>";
-            echo "+ (сложение), - (вычитание), * (умножение), / (деление), % (деление по модулю), ^ (возведение в степень)" . "<br>";
-            echo "Последующие символы в строке должны обозначать натуральное число" . "<br>";
-            echo 'Например: $arith_exp = "^2";';
+            echo "знак арифметической операции, один из следующих: " . "<br>";
+            echo "+ (сложение), - (вычитание), * (умножение), / (деление)" . "<br>";
     }
 }
 array_print($arr_number, $arith_exp);
