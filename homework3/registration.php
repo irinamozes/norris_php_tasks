@@ -42,7 +42,13 @@
                 </label>
             </td>
         </tr>
-
+        <tr>
+            <td>Добавьте фотографию:</td>
+            <td>
+                <input type="hidden" name="MAX_FILE_SIZE" value="3145728" />
+                <input type="file" name="picture"/>
+            </td>
+        </tr>
         <tr>
             <td>Расскажите о себе:</td>
             <td>

@@ -22,7 +22,7 @@
             <td>Пароль:</td>
             <td>
                 <label>
-                    <input type="password" name="password" required>
+                    <input type="text" name="password" required>
                 </label>
             </td>
         </tr>
@@ -33,6 +33,6 @@
         </tr>
     </table>
 </form>
-<a href="index.php">Вернуться на главную</a>
+
 </body>
 </html>

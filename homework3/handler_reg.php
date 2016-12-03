@@ -1,15 +1,7 @@
 <?php
-//Обработка регистрации в системе и редактирования профиля 
-
 error_reporting (E_ALL);
-$host = 'localhost';
-$base = 'lschool_db';
-$user = 'root';
-$pass = '123';
-$connection = @new mysqli($host, $user, $pass, $base);
-if (mysqli_connect_errno()) {
-    die(mysqli_connect_error());
-}
+require "connect.php";
+
 $connection->query('SET NAMES "UTF-8"');
 
 $sqlsave_cou = "SELECT COUNT(*) FROM user_save";
@@ -25,20 +17,25 @@ if ($row_save ['COUNT(*)'] == 0) {
 
     $sqlLogin = 'insert into users_login (login, pass) value (?, ?)';
     $stmt = $connection->prepare($sqlLogin);
+
+
+
+
     $login = strip_tags($_POST['login']);
     $pass = strip_tags($_POST['pass']);
     $stmt->bind_param('ss', $login, $pass);
     $stmt->execute();
 
+    $uniq_info = mysqli_affected_rows();
+
     $sqllogin_cou = "SELECT COUNT(*) FROM users_login";
     $cou_login = $connection->query($sqllogin_cou);
     $row_login_2 = mysqli_fetch_assoc($cou_login);
 
-
     if ($row_login_2['COUNT(*)'] == $row_login_1['COUNT(*)']) {
         echo "Такой логин уже существует. Введите другой логин"."<br>";
         echo "<a href='registration.php'><strong>Назад</strong></a>"."<br>";
-        $connection->close;
+        $connection->close();
         exit();
     }
 
@@ -75,11 +72,41 @@ if ($row_save ['COUNT(*)'] == 0) {
     $sqlUsers = "update users_profile set users_profile.username='$username', users_profile.age='$age', users_profile.info='$info' where user_id = $login_id_save";
     $id_login_up = $connection->query($sqlUsers);
 
-    $connection->close;
-
 }
+
+if (!empty($_FILES['picture']['name'])) {
+    $sqlImages = 'insert into images (img_name, user_id) value (?, ?)';
+    $stmt = $connection->prepare($sqlImages);
+    $name = strip_tags($_FILES['picture']['name']);
+    $name = $login_id_save.'_'. $name;
+
+    $imgName = $name;
+
+    $stmt->bind_param('si', $imgName, $login_id_save);
+    $stmt->execute();
+
+    if ($_FILES['picture']['type'] != "image/gif" && $_FILES['picture']['type'] != "image/jpeg"
+        && $_FILES['picture']['type'] != "image/png") {
+        echo  'выбран файл не формата jpeg, png или gif, файл не будет загружен';
+    } else {
+
+        $dirUpload = dirname(__FILE__);
+
+        $uploads_dir = $dirUpload. '/photos';
+
+        $tmp_name = $_FILES['picture']['tmp_name'];
+        $destination = $uploads_dir.'/'.$name;
+        $m = move_uploaded_file($tmp_name, $destination);
+
+        $user_name = "norris";
+
+        chown($destination, $user_name);
+        chmod($destination, 0777);
+    }
+}
+
 echo 'Данные успешно введены!'."<br>";
-$connection->close;
+$connection->close();
 echo "<a href='index.php'><strong>На главную</strong></a>"."<br>";
 echo "<a href='edit.php'><strong>Редактировать профиль</strong></a>"."<br>";
-echo "<a href='index.php'><strong>Загрузить фото</strong></a>"."<br>";
+echo "<a href='image_service.php'><strong>Фото сервис</strong></a>"."<br>";
