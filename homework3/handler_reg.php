@@ -18,7 +18,7 @@ if ($row_save ['COUNT(*)'] == 0) {
     $sqlLogin = 'insert into users_login (login, pass) value (?, ?)';
     $stmt = $connection->prepare($sqlLogin);
 
-
+    //print_r($_SERVER );
 
 
     $login = strip_tags($_POST['login']);
@@ -26,7 +26,8 @@ if ($row_save ['COUNT(*)'] == 0) {
     $stmt->bind_param('ss', $login, $pass);
     $stmt->execute();
 
-    $uniq_info = mysqli_affected_rows();
+    $uniq_info = mysqli_affected_rows($connection);
+    print_r($uniq_info);
 
     $sqllogin_cou = "SELECT COUNT(*) FROM users_login";
     $cou_login = $connection->query($sqllogin_cou);
@@ -98,10 +99,11 @@ if (!empty($_FILES['picture']['name'])) {
         $destination = $uploads_dir.'/'.$name;
         $m = move_uploaded_file($tmp_name, $destination);
 
-        $user_name = "norris";
+        //$user_name = "norris";
 
-        chown($destination, $user_name);
         chmod($destination, 0777);
+        //chown($destination, $user_name);
+
     }
 }
 
