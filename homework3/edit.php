@@ -10,10 +10,7 @@
 error_reporting (E_ALL);
 require "connect.php";
 
-$sqlsave_id = "SELECT * FROM user_save";
-$id_login = $connection->query($sqlsave_id);
-$login_id = mysqli_fetch_assoc($id_login);
-$login_id_save = $login_id['user_id'];
+$login_id_save = $_COOKIE['iduser'];
 
 $sqlLogin = "SELECT * FROM users_login where user_id = $login_id_save";
 $id_login = $connection->query($sqlLogin);

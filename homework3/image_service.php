@@ -1,22 +1,10 @@
-<!doctype html>
-<html lang="en">
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Фото сервис</title>
-</head>
 <?php
 error_reporting (E_ALL);
 require "connect.php";
 
-$sqlsave_id = "SELECT * FROM user_save";
-$id_login = $connection->query($sqlsave_id);
-$login_id = mysqli_fetch_assoc($id_login);
-$login_id_save = $login_id['user_id'];
+$login_id_save = $_COOKIE["iduser"];
 
 $len_login_id_save = strlen ($login_id_save);
-
 
 $dirUpload = dirname(__FILE__);
 
@@ -35,20 +23,21 @@ $filelist = array();
 
   ?>
 
-  <!doctype html>
-  <html lang="en">
-  <head>
-  <meta charset="UTF-8">
-  <meta name="viewport"
-  content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Document</title>
-  </head>
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Фото сервис</title>
+</head>
   <body>
 
   <?php $sqlImgId = 'SELECT img_id FROM images WHERE img_name = ?'; ?>
   <?php $stmt = $connection->prepare($sqlImgId); ?>
 
+<?php if ($len) : ?>
   <?php for ($i = 0; $i < $len; $i++): ?>
       <form action="service.php" method="post">
           <?php $imgName = $filelist[$i]; ?>
@@ -73,6 +62,7 @@ $filelist = array();
               <br>
       </form>
   <?php endfor; ?>
+<?php endif; ?>
 
 <?php
 echo "<a href='edit.php'><strong>Редактировать профиль</strong></a>"."<br>";

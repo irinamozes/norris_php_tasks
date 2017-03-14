@@ -36,3 +36,8 @@
 
 </body>
 </html>
+
+<?php
+echo "<br>";
+
+echo "<a href='index.php'><strong>На главную</strong></a>"."<br>";

@@ -16,16 +16,16 @@ while ($row = mysqli_fetch_row($result)) {
 }
 
 if ($id) {
-    $sqlsave_ins = "insert into user_save (user_id) value ($id)";
-    $connection->query($sqlsave_ins);
+    setcookie("iduser", $id);
 
     $connection->close();
-        echo "<a href='edit.php'><strong>Редактировать профиль</strong></a>"."<br>";
-        echo "<a href='image_service.php'><strong>Фото сервис</strong></a>"."<br>";
+    echo "<a href='edit.php'><strong>Редактировать профиль</strong></a>"."<br>";
+    echo "<a href='image_service.php'><strong>Фото сервис</strong></a>"."<br>";
 
-    } else {
+} else {
       echo 'Неверный логин или пароль!'."<br>";
-          $connection->close();
-    }
+      $connection->close();
+      echo "<a href='entrance.php'><strong>Назад</strong></a>"."<br>";
+}
 
-    echo "<a href='index.php'><strong>На главную</strong></a>";
+echo "<a href='index.php'><strong>На главную</strong></a>";

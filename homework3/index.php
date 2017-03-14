@@ -13,9 +13,7 @@
 <?php
 
 require "connect.php";
-$sqlsave_del = "DELETE FROM user_save";
-
-$connection->query($sqlsave_del);
+setcookie("iduser", 0);
 ?>
 
 

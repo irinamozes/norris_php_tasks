@@ -36,17 +36,12 @@ $sql = "
   username varchar(100) NOT NULL,
   age int(3),
   info text,
-  PRIMARY KEY (id),
+  user_id int(5) NOT NULL,
+  PRIMARY KEY (profile_id),
   FOREIGN KEY (user_id) REFERENCES users_login (user_id)
   ON UPDATE CASCADE
   ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;";
-$connection->query($sql);
-
-$sql = "
-  CREATE TABLE user_save (
-  user_id int(5) NOT NULL,
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;";
 $connection->query($sql);
 
 $sql = "

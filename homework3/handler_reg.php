@@ -4,66 +4,54 @@ require "connect.php";
 
 $connection->query('SET NAMES "UTF-8"');
 
-$sqlsave_cou = "SELECT COUNT(*) FROM user_save";
-$cou_save = $connection->query($sqlsave_cou);
-$row_save = mysqli_fetch_assoc($cou_save);
 
-$sqllogin_cou = "SELECT COUNT(*) FROM users_login";
-$cou_login = $connection->query($sqllogin_cou);
-$row_login_1 = mysqli_fetch_assoc($cou_login);
-
-
-if ($row_save ['COUNT(*)'] == 0) {
+if ($_COOKIE['iduser'] == 0) {
 
     $sqlLogin = 'insert into users_login (login, pass) value (?, ?)';
     $stmt = $connection->prepare($sqlLogin);
-
-    //print_r($_SERVER );
-
 
     $login = strip_tags($_POST['login']);
     $pass = strip_tags($_POST['pass']);
     $stmt->bind_param('ss', $login, $pass);
     $stmt->execute();
 
+    //$pass = crypt($pass);
+    $stmt->bind_param('ss', $login, $pass);
+    $stmt->execute();
+
     $uniq_info = mysqli_affected_rows($connection);
-    print_r($uniq_info);
 
-    $sqllogin_cou = "SELECT COUNT(*) FROM users_login";
-    $cou_login = $connection->query($sqllogin_cou);
-    $row_login_2 = mysqli_fetch_assoc($cou_login);
-
-    if ($row_login_2['COUNT(*)'] == $row_login_1['COUNT(*)']) {
+    if ($uniq_info <= 0) {
         echo "Такой логин уже существует. Введите другой логин"."<br>";
         echo "<a href='registration.php'><strong>Назад</strong></a>"."<br>";
         $connection->close();
         exit();
     }
 
-     $sqllogin_id = "SELECT * FROM users_login ORDER BY user_id DESC LIMIT 1";
-     $id_login = $connection->query($sqllogin_id);
-     $login_id = mysqli_fetch_assoc($id_login);
-     $login_id_save = $login_id['user_id'];
+    $login_id_save = mysqli_insert_id ( $connection );
+    setcookie("iduser", $login_id_save);
 
-     $sqlsave_ins = "insert into user_save (user_id) value ($login_id_save)";
-     $connection->query($sqlsave_ins);
-
-
-     $sqlUsers = 'insert into users_profile (username, age, info, user_id) value (?, ?, ?, ?)';
-     $stmt = $connection->prepare($sqlUsers);
-     $username = strip_tags($_POST['name']);
-     $age = strip_tags($_POST['age']);
-     $info = strip_tags($_POST['info']);
-     $stmt->bind_param('sisi', $username, $age, $info, $login_id_save);
-     $stmt->execute();
+    $sqlUsers = 'insert into users_profile (username, age, info, user_id) value (?, ?, ?, ?)';
+    $stmt = $connection->prepare($sqlUsers);
+    $username = strip_tags($_POST['name']);
+    $age = strip_tags($_POST['age']);
+    $info = strip_tags($_POST['info']);
+    $stmt->bind_param('sisi', $username, $age, $info, $login_id_save);
+    $stmt->execute();
 
 } else {
-    $sqlsave_id = "SELECT * FROM user_save";
-    $id_login = $connection->query($sqlsave_id);
-    $login_id = mysqli_fetch_assoc($id_login);
-    $login_id_save = $login_id['user_id'];
+
+    $login_id_save = $_COOKIE['iduser'];
 
     $pass = strip_tags($_POST['pass']);
+
+         
+    //$pass = crypt($pass);
+
+    //$key = "This is a password";
+
+    //$pass = mcrypt_encrypt (MCRYPT_RIJNDAEL_256, $key, $passv, MCRYPT_MODE_ECB);
+
     $sqlLogin = "update users_login set users_login.pass='$pass' where user_id = $login_id_save";
     $id_login_up = $connection->query($sqlLogin);
 
