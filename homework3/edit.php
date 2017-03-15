@@ -76,7 +76,7 @@ $connection->close()
             <td>Расскажите о себе:</td>
             <td>
                 <label>
-                    <textarea name="info" cols="40" rows="5" >"<?php echo $profile_ar_info ?>"</textarea>
+                    <textarea name="info" cols="40" rows="5" ><?php echo $profile_ar_info ?></textarea>
                 </label>
             </td>
         </tr>

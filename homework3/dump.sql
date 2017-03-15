@@ -1,6 +1,6 @@
 -- MySQL dump 10.13  Distrib 5.6.28, for debian-linux-gnu (x86_64)
 --
--- Host: localhost    Database: lschool_db
+-- Host: localhost    Database: loft_db
 -- ------------------------------------------------------
 -- Server version	5.6.28-0ubuntu0.15.04.1
 
@@ -29,7 +29,7 @@ CREATE TABLE `images` (
   PRIMARY KEY (`img_id`),
   KEY `user_id` (`user_id`),
   CONSTRAINT `images_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users_login` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -38,7 +38,7 @@ CREATE TABLE `images` (
 
 LOCK TABLES `images` WRITE;
 /*!40000 ALTER TABLE `images` DISABLE KEYS */;
-INSERT INTO `images` VALUES ('1_xzx1VYTl5tE.jpg',1,1),('2_UpivlC6KOwI.jpg',2,2),('3_21YNB2Nfg5k.jpg',3,3),('3_bCZIz0SCrMQ.jpg',4,3),('1_EtOdEm98EGM.jpg',5,1),('1_lavLfq881LI.jpg',6,1),('4_IngqYCHJX6U.jpg',7,4),('4_SL7vBqnAMnE.jpg',8,4),('4_reeGQIhuJOg.jpg',9,4),('4_JM3Uj6VKGPo.jpg',10,4),('5_HVGv5US02Ec.jpg',11,5),('5_j8hFfW668co.jpg',12,5),('5_P7NUNadu97g.jpg',13,5),('5_Mu8LCcWu6_0.jpg',14,5),('5_CphIxW9Lmec.jpg',15,5),('5_EYrNEc3R2xc.jpg',16,5),('2_xAlyQNECeOo.jpg',17,2),('2_NyUE912AXgk.jpg',18,2),('2_Qu5C2tDvZ_A.jpg',19,2),('6_ugEAZJrOmzM.jpg',20,6),('6_8qjYTrlhP8k.jpg',21,6),('6_OvyxRdMlI0g.jpg',22,6),('6_HvDquPfJo08.jpg',23,6),('7_LfViAOgQS5o.jpg',24,7),('7_ANT6CxbhYHA.jpg',25,7),('8_Xe2V9BMHsWo.jpg',26,8),('8_fYIE_-1uvoM.jpg',27,8),('8_FwwSDJf7JOs.jpg',28,8);
+INSERT INTO `images` VALUES ('1_YTVV_1BktzI.jpg',1,1),('1_xzx1VYTl5tE.jpg',2,1),('1_Xe2V9BMHsWo.jpg',3,1),('1_xAlyQNECeOo.jpg',4,1),('2_UpivlC6KOwI.jpg',5,2),('2_swNj6VtVAdA.jpg',6,2),('2_SL7vBqnAMnE.jpg',7,2),('3_rJW5zU4jwpA.jpg',8,3),('3_reeGQIhuJOg.jpg',9,3),('3_Qu5C2tDvZ_A.jpg',10,3),('4_qSvu6hJNYeA.jpg',11,4),('4_P7NUNadu97g.jpg',12,4),('4_OvyxRdMlI0g.jpg',13,4),('4_OUeMimtXpcI.jpg',14,4),('5_NyUE912AXgk.jpg',15,5),('5_Mu8LCcWu6_0.jpg',16,5),('5__MDR7B_cw3M.jpg',17,5),('6_LfViAOgQS5o.jpg',18,6),('6_lavLfq881LI.jpg',19,6),('6_JM3Uj6VKGPo.jpg',20,6),('7_j8hFfW668co.jpg',21,7),('7_IngqYCHJX6U.jpg',22,7),('7_HVGv5US02Ec.jpg',23,7),('7_fYIE_-1uvoM.jpg',24,7);
 /*!40000 ALTER TABLE `images` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -55,7 +55,7 @@ CREATE TABLE `users_login` (
   `user_id` int(5) NOT NULL AUTO_INCREMENT,
   PRIMARY KEY (`user_id`),
   UNIQUE KEY `login` (`login`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -64,7 +64,7 @@ CREATE TABLE `users_login` (
 
 LOCK TABLES `users_login` WRITE;
 /*!40000 ALTER TABLE `users_login` DISABLE KEYS */;
-INSERT INTO `users_login` VALUES ('cat_1','_1_1_1_1',1),('cat_2','_2_2_2_2',2),('cat_3','_3_3_3_3',3),('cat_4','_4_4_4_4',4),('cat_5','_5_5_5_5',5),('cat_6','_6_6_6_6',6),('cat_7','_7_7_7_7',7),('cat_8','_8_8_8_8',8);
+INSERT INTO `users_login` VALUES ('cat_1','_1_1_1_1',1),('cat_2','_2_2_2_2',2),('cat_3','_3_3_3_3',3),('cat_4','_4_4_4_4',4),('cat_5','_5_5_5_5',5),('cat_6','_6_6_6_6',6),('cat_7','_7_7_7_7',7);
 /*!40000 ALTER TABLE `users_login` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -84,7 +84,7 @@ CREATE TABLE `users_profile` (
   PRIMARY KEY (`profile_id`),
   KEY `user_id` (`user_id`),
   CONSTRAINT `users_profile_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users_login` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -93,7 +93,7 @@ CREATE TABLE `users_profile` (
 
 LOCK TABLES `users_profile` WRITE;
 /*!40000 ALTER TABLE `users_profile` DISABLE KEYS */;
-INSERT INTO `users_profile` VALUES (1,'cat_1',78,'\"\"\"cfbdjnfkmls;\"\"\"',1),(2,'cat_2',27,'\"\"\"\"',2),(3,'cat_3',28,'\"dbcjsnfkmnslmcv;/s\"',3),(4,'cat_4',47,'ckjhoul\r\n\'',4),(5,'cat_5',65,'\"n m,nm.\"',5),(6,'cat_6',14,'\"\"',6),(7,'cat_7',16,'\"\"',7),(8,'cat_8',99,'\"\"',8);
+INSERT INTO `users_profile` VALUES (1,'cat_1',56,'',1),(2,'cat_2',12,'',2),(3,'cat_3',76,'xbjajnxkm;ALx;a',3),(4,'cat_4',16,'vbjshbzkc nKSZ',4),(5,'cat_5',28,'',5),(6,'cat_6',36,'',6),(7,'cat_7',29,'gcvhbnk,n.lm;/',7);
 /*!40000 ALTER TABLE `users_profile` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -106,4 +106,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-03-14 19:26:50
+-- Dump completed on 2017-03-15 22:33:30

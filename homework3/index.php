@@ -1,4 +1,7 @@
-
+<?php
+setcookie("iduser", 0);
+require "connect.php";
+?>
 <!doctype html>
 <html lang="en">
 <head>
@@ -8,14 +11,6 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 </head>
 <body>
-
-
-<?php
-
-require "connect.php";
-setcookie("iduser", 0);
-?>
-
 
 <title>Document</title>
 <p>

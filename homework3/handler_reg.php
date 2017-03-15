@@ -1,9 +1,10 @@
 <?php
 error_reporting (E_ALL);
-require "connect.php";
 
-$connection->query('SET NAMES "UTF-8"');
+require_once "connect.php";
 
+mysqli_error ($connection);
+echo "<br>";
 
 if ($_COOKIE['iduser'] == 0) {
 
@@ -15,11 +16,10 @@ if ($_COOKIE['iduser'] == 0) {
     $stmt->bind_param('ss', $login, $pass);
     $stmt->execute();
 
-    //$pass = crypt($pass);
-    $stmt->bind_param('ss', $login, $pass);
-    $stmt->execute();
+    mysqli_error ($connection);
 
     $uniq_info = mysqli_affected_rows($connection);
+    //echo $uniq_info . "<br>";
 
     if ($uniq_info <= 0) {
         echo "Такой логин уже существует. Введите другой логин"."<br>";
@@ -44,13 +44,6 @@ if ($_COOKIE['iduser'] == 0) {
     $login_id_save = $_COOKIE['iduser'];
 
     $pass = strip_tags($_POST['pass']);
-
-         
-    //$pass = crypt($pass);
-
-    //$key = "This is a password";
-
-    //$pass = mcrypt_encrypt (MCRYPT_RIJNDAEL_256, $key, $passv, MCRYPT_MODE_ECB);
 
     $sqlLogin = "update users_login set users_login.pass='$pass' where user_id = $login_id_save";
     $id_login_up = $connection->query($sqlLogin);
@@ -100,3 +93,8 @@ $connection->close();
 echo "<a href='index.php'><strong>На главную</strong></a>"."<br>";
 echo "<a href='edit.php'><strong>Редактировать профиль</strong></a>"."<br>";
 echo "<a href='image_service.php'><strong>Фото сервис</strong></a>"."<br>";
+//} else {
+  //exit();
+//}
+//}
+//cor();

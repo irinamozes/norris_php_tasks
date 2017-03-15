@@ -1,6 +1,6 @@
 <?php
 $host = 'localhost';
-$base = 'lschool_db';
+$base = 'loft_db';
 $user = 'root';
 $pass = '123';
 $connection = @new mysqli($host, $user, $pass, $base);
