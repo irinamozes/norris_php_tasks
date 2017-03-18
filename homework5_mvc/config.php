@@ -1,0 +1,3 @@
+<?php
+$posBegin = 3;
+?>
