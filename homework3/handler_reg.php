@@ -3,8 +3,6 @@ error_reporting (E_ALL);
 
 require_once "connect.php";
 
-//mysqli_error ($connection);
-
 
 if ($_COOKIE['iduser'] == 0) {
 
@@ -16,10 +14,8 @@ if ($_COOKIE['iduser'] == 0) {
     $stmt->bind_param('ss', $login, $pass);
     $stmt->execute();
 
-    mysqli_error ($connection);
-
     $uniq_info = mysqli_affected_rows($connection);
-    //echo $uniq_info . "<br>";
+    
 
     if ($uniq_info <= 0) {
         echo "Такой логин уже существует. Введите другой логин"."<br>";
