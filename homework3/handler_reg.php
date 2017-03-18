@@ -3,8 +3,8 @@ error_reporting (E_ALL);
 
 require_once "connect.php";
 
-mysqli_error ($connection);
-echo "<br>";
+//mysqli_error ($connection);
+
 
 if ($_COOKIE['iduser'] == 0) {
 

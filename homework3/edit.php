@@ -60,7 +60,7 @@ $connection->close()
             <td>Введите возраст:</td>
             <td>
                 <label>
-                    <input type="text" name="age" value="<?php echo $profile_ar_age ?>"/>
+                    <input type="number" size="10" name="age" pattern="\[0-9]{2}\" min="10" max="99" value="<?php echo $profile_ar_age ?>"/ >
                 </label>
             </td>
         </tr>

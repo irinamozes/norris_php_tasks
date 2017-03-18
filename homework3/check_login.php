@@ -9,7 +9,7 @@ $result = $connection->query($sql);
 $id = 0;
 while ($row = mysqli_fetch_row($result)) {
     $lp = $row[0].$row[1];
-    $lpv = strip_tags($_POST['log']). strip_tags($_POST['password']);
+    $lpv = strip_tags($_POST['login']). strip_tags($_POST['password']);
     if ($lpv == $lp){
         $id = $row[2];
     }

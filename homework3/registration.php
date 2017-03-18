@@ -38,7 +38,7 @@
             <td>Введите возраст:</td>
             <td>
                 <label>
-                    <input type="text" name="age"/>
+                  <input type="number" size="10" name="age" pattern="\[0-9]{2}\" min="10" max="99" >  
                 </label>
             </td>
         </tr>

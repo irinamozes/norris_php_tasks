@@ -14,7 +14,7 @@
             <td>Логин:</td>
             <td>
                 <label>
-                    <input type="text" name="log" required>
+                    <input type="text" name="login" required>
                 </label>
             </td>
         </tr>
