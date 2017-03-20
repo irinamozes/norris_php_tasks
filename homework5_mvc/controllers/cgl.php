@@ -3,22 +3,18 @@
 
 class C extends ControllerParent {
 
-  public function c($modulServer) {
-    static $counter = 0;
-    $cou = ++$counter;
+  public function contr($modulServer) {
 
-    if ($cou <= 1) {
-      setcookie("iduser", 0);
-      setcookie("idimg", 0);
-      $this->viewGlav = new View();
-      if ($modulServer == 'glavnaya') {
-        $this->viewGlav->getViewFooter($modulServer);
+    setcookie("iduser", 0);
+    setcookie("idimg", 0);
+    $this->viewGlav = new View();
+    if ($modulServer == 'glavnaya') {
+      $this->viewGlav->getViewFooter($modulServer);
 
-      } else { // vhod
-        $this->viewGlav->getViewHeader($modulServer);
-      }
-
+    } else { // vhod
+      $this->viewGlav->getViewHeader($modulServer);
     }
+
   }
 }
 

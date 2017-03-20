@@ -4,7 +4,7 @@ class ModelDataRe {
 
   public $arData;
 
-  public function modelDataRe() {
+  public function modelRe() {
     static $counter = 0;
     $cou = ++$counter;
     if ($cou <= 1) {

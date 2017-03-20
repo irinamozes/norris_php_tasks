@@ -14,7 +14,7 @@ class Route {
 	  $proc = $_SERVER['REQUEST_URI'];
 		$proc = explode('/', $proc);
 		$modul = $proc[$posBegin];
-    
+
     if ($modul === 'index.php') {
 			$modul = 'glavnaya';
 		}
@@ -26,7 +26,7 @@ class Route {
 		include 'controllers/'.$controller;
 
     $cObject = new C($modul);
-		$cObject->c($modul);
+		$cObject->contr($modul);
 
   }
 }

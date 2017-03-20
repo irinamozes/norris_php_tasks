@@ -5,11 +5,8 @@ class Model {
 
   use GeneralFooter;
 
-  public function model() {
-    static $counter = 0;
-    $cou = ++$counter;
+  public function mod() {
 
-    if ($cou <= 1) {
       error_reporting (E_ALL);
       require "connect.php";
 
@@ -107,6 +104,6 @@ class Model {
       echo 'Данные успешно введены!'."<br>";
       $connection->close();
 
-    }
+    
   }
 }

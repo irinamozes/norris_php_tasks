@@ -3,23 +3,17 @@
 
 class C extends ControllerParent {
 
-  public function c($modulServer) {
-    static $counter = 0;
-    $cou = ++$counter;
+  public function contr($modulServer) {
 
-    if ($cou <= 1) {
+    include 'models/mre.php';
+    $data = new ModelDataRe();
+    $data->modelRe();
+    $dataAr = $data->arData;
 
-      include 'models/mre.php';
-      $data = new ModelDataRe();
-      $data->modelDataRe();
-      $dataAr = $data->arData;
+    $viewRe = new View();
+    $viewRe->getViewHeader($modulServer, $dataAr);
 
-      $viewRe = new View();
-      $viewRe->getViewHeader($modulServer, $dataAr);
 
-    } else {
-        exit();
-    }
   }
 }
 ?>

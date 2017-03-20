@@ -1,14 +1,11 @@
 <?php
-//Модель для обработки валидности информации входа
+//Модель для обработки валидности ввода информации входа
 class Model {
 
   use GeneralFooter;
 
-  public function model() {
-    static $counter = 0;
-    $cou = ++$counter;
-    
-    if ($cou <= 1) {
+  public function mod() {
+
       error_reporting (E_ALL);
       require_once "connect.php";
 
@@ -43,7 +40,7 @@ class Model {
         $connection->close();
         exit();
       }
-    }
+    
   }
 }
 ?>

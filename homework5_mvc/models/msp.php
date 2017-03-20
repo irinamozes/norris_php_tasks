@@ -9,7 +9,7 @@ class ModelDataSp {
 
   }
 
-  public function modelDataSp() {
+  public function modelSp() {
     require_once "connect.php";
     $tab_name = strval ($this->arData[0]);
     $order_name = strval ($this->arData[1]);
