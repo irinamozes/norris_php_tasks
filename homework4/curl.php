@@ -8,7 +8,7 @@ curl_close($ch);
 fclose($fop);
 $fi = file_get_contents('curl.json');
 $json = json_decode($fi, 'true');
-print_r($json);
+//print_r($json);
 echo "<br>";
 echo $json["query"]["pages"][15580374]["pageid"]."<br>";
 echo $json["query"]["pages"][15580374]["title"];
