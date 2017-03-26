@@ -5,11 +5,13 @@ class ModelDataRe {
   public $arData;
 
   public function modelRe() {
-    static $counter = 0;
-    $cou = ++$counter;
-    if ($cou <= 1) {
+
       error_reporting (E_ALL);
       require "connect.php";
+
+      //echo $_COOKIE['iduser']."<br>";
+      //echo $_COOKIE['idimg']."<br>";
+      //print_r ($_COOKIE);
 
       $login_id_save = $_COOKIE['iduser'];
       $imgSrc = $_COOKIE['idimg'];
@@ -24,6 +26,8 @@ class ModelDataRe {
         $profile_ar_info = '';
         $img_ar_name = '';
         $img_ar_height = '';
+        $place_ar_holder = '';
+        $requir = 'required';
 
       } else {
 
@@ -31,10 +35,18 @@ class ModelDataRe {
         $id_login = $connection->query($sqlLogin);
         $login_ar = mysqli_fetch_assoc($id_login);
         $login_ar_login = $login_ar['login'];
-        $login_ar_pass = $login_ar['pass'];
+        //$login_ar_pass = $login_ar['pass'];
+        $login_ar_pass ='';
         $lo = 'Логин: ' .$login_ar_login;
         $disabl = "hidden";
-        $img_ar_height = 220;
+        if ($_COOKIE["idimg"]) {
+          $img_ar_height = 220;
+        } else {
+          $img_ar_height = '';
+        }
+
+        $place_ar_holder = 'Можно сменить пароль';
+        $requir = '';
 
         $sqlprofile = "SELECT * FROM users_profile where user_id = $login_id_save";
         $id_profile = $connection->query($sqlprofile);
@@ -70,7 +82,9 @@ class ModelDataRe {
       $this->arData[6] = $profile_ar_info;
       $this->arData[7] = 'photos/' . $img_ar_name;
       $this->arData[8] = $img_ar_height;
+      $this->arData[9] = $place_ar_holder;
+      $this->arData[10] = $requir;
       return $this->arData;
-    }
+
   }
 }

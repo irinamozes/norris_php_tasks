@@ -15,7 +15,10 @@ class Model {
       $id = 0;
       while ($row = mysqli_fetch_row($result)) {
         $lp = $row[0].$row[1];
-        $lpv = strip_tags($_POST['login']). strip_tags($_POST['password']);
+        $lpv = strip_tags($_POST['login']).md5(strip_tags($_POST['password']));
+        //$lpv_mod5 = md5($lpv);
+        //$lpv = strip_tags($_POST['login']).$lpv_mod5;
+
           if ($lpv == $lp){
             $id = $row[2];
           }
@@ -29,7 +32,12 @@ class Model {
         $img_ar = mysqli_fetch_assoc($id_img);
         $img_ar_id = $img_ar['img_id'];
 
-        setcookie("idimg", $img_ar_id);
+        if ($img_ar_id) {
+          setcookie("idimg", $img_ar_id);
+        } else {
+          setcookie("idimg", 0);
+                  
+        }
 
         $connection->close();
         echo 'Регистрация прошла успешно!'."<br>";
@@ -40,7 +48,7 @@ class Model {
         $connection->close();
         exit();
       }
-    
+
   }
 }
 ?>

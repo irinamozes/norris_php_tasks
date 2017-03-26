@@ -7,6 +7,8 @@ class C extends ControllerParent {
 
     setcookie("iduser", 0);
     setcookie("idimg", 0);
+
+  
     $this->viewGlav = new View();
     if ($modulServer == 'glavnaya') {
       $this->viewGlav->getViewFooter($modulServer);

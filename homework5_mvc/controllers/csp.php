@@ -25,7 +25,14 @@ class C extends ControllerParent {
       $dataAr[4] = 'i';
       $dataAr[0] = 'images';
       $dataAr[1] = '';
-      $dataAr[3] = $id_img;
+
+      if ($id_img) {
+        $dataAr[3] = $id_img;
+
+      } else {
+        $dataAr[3] = '';
+      }
+
 
     }
 

@@ -18,7 +18,7 @@ class Model {
         $stmt = $connection->prepare($sqlLogin);
 
         $login = strip_tags($_POST['login']);
-        $pass = strip_tags($_POST['pass']);
+        $pass = md5(strip_tags($_POST['pass']));
         $stmt->bind_param('ss', $login, $pass);
         $stmt->execute();
 
@@ -50,10 +50,12 @@ class Model {
 
 
         $login_id_save = $_COOKIE['iduser'];
+        if (strip_tags($_POST['pass'])) {
+          $pass = md5(strip_tags($_POST['pass']));
+          $sqlLogin = "update users_login set users_login.pass='$pass' where user_id = $login_id_save";
+          $id_login_up = $connection->query($sqlLogin);
+        }
 
-        $pass = strip_tags($_POST['pass']);
-        $sqlLogin = "update users_login set users_login.pass='$pass' where user_id = $login_id_save";
-        $id_login_up = $connection->query($sqlLogin);
 
         $username = strip_tags($_POST['name']);
         $age = strip_tags($_POST['age']);
@@ -64,46 +66,63 @@ class Model {
       }
 
       if (!empty($_FILES['picture']['name'])) {
-        $sqlImages = 'insert into images (img_name, user_id) value (?, ?)';
-        $stmt = $connection->prepare($sqlImages);
-        $name = strip_tags($_FILES['picture']['name']);
-        $name = $login_id_save.'_'. $name;
-
-        $imgName = $name;
-
-        $stmt->bind_param('si', $imgName, $login_id_save);
-        $stmt->execute();
 
         if ($_FILES['picture']['type'] != "image/gif" && $_FILES['picture']['type'] != "image/jpeg" && $_FILES['picture']['type'] != "image/png") {
+          setcookie("idimg", 0);
           echo  'выбран файл не формата jpeg, png или gif, файл не будет загружен';
         } else {
-
-          $imgId = mysqli_insert_id ( $connection );
-          setcookie("idimg", $imgId);
 
           $dirUpload = dirname(__FILE__);
           $dirPos = strripos ( $dirUpload , '/' );
           $dirUpload = substr($dirUpload, 0, $dirPos );
 
+          if (!empty($dirUpload)) {
+            $uploads_dir = $dirUpload. '/photos';
+          } else {
+            $uploads_dir = 'photos';
+          }
 
-          $uploads_dir = $dirUpload. '/photos';
-
-
+          $name = strip_tags($_FILES['picture']['name']);
+          $name = $login_id_save.'_'. $name;
           $tmp_name = $_FILES['picture']['tmp_name'];
           $destination = $uploads_dir.'/'.$name;
+
           $m = move_uploaded_file($tmp_name, $destination);
-
-          $user_name = "norris";
-
           chmod($destination, 0777);
-      //  chown($destination, $user_name);
+
+          if ($m) {
+            $sqlImages = 'insert into images (img_name, user_id) value (?, ?)';
+            $stmt = $connection->prepare($sqlImages);
+            $name = strip_tags($_FILES['picture']['name']);
+            $name = $login_id_save.'_'. $name;
+
+            $imgName = $name;
+
+            $stmt->bind_param('si', $imgName, $login_id_save);
+            $stmt->execute();
+
+            $imgId = mysqli_insert_id ( $connection );
+            setcookie("idimg", $imgId);
+            //$uploads_dir = $dirUpload. '/photos';
+          } else {
+            setcookie("idimg", 0);
+            echo  'Произошла ошибка, файл не будет загружен'. "<br>";
+          }
+
+          //$user_name = "norris";
+
+          //  chown($destination, $user_name);
 
         }
+      } else {
+
+        setcookie("idimg", 0);
+
       }
 
       echo 'Данные успешно введены!'."<br>";
       $connection->close();
 
-    
+
   }
 }

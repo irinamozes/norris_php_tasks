@@ -21,7 +21,7 @@ error_reporting (E_ALL);
             <td>Введите пароль:</td>
             <td>
                 <label >
-                    <input type="password" name="pass" value="<?php echo $dataAr[3] ?>" required autofocus/>
+                    <input type="password" placeholder="<?php echo $dataAr[9] ?>" name="pass" value="<?php echo $dataAr[3] ?>" <?php echo $dataAr[10] ?> autofocus/>
                 </label>
             </td>
         </tr>

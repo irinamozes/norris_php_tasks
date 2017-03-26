@@ -29,49 +29,49 @@ class ModelDataSp {
 
     }
     $result = $connection->query($sqlUsers);
-    $row = mysqli_fetch_array($result);
+    if ($result) {
+      $row = mysqli_fetch_array($result);
 
 
-    do {
+      do {
 
-      if ($this->arData[4] == 's') {
+        if ($this->arData[4] == 's') {
 
-        if ($row[2] <18) {
-          $user_age = ' Несовершеннолетний';
+          if ($row[2] <18) {
+            $user_age = ' Несовершеннолетний';
+          } else {
+            $user_age = ' Совершеннолетний';
+          }
+
+          $id_polz = $row[4];
+          $sp_f = 'spisokf_'.$id_polz;
+
+
+          printf("<p>Пользователь: " .$row[1] . "  Возраст: " .$row[2] .$user_age ."</p>");
+
+          printf("<a href = " .$sp_f ." ><strong>Список файлов пользователя</strong></a>"."<br>");
+
+        } elseif ($this->arData[4] == 'f') {
+
+          $id_img = $row[1];
+          $sp_f = 'spisoki_'.$id_img;
+
+          printf("<p>Изображение: " .$row[0] ."</p>");
+
+          printf("<a href = " .$sp_f ." ><strong>Показать</strong></a>"."<br>");
+
         } else {
-          $user_age = ' Совершеннолетний';
+
+          $sp_f = 'photos/'.$row[0];
+
+          printf("<img src= " .$sp_f ." height = '420' >");
+
         }
-
-        $id_polz = $row[4];
-        $sp_f = 'spisokf_'.$id_polz;
-
-
-        printf("<p>Пользователь: " .$row[1] . "  Возраст: " .$row[2] .$user_age ."</p>");
-
-        printf("<a href = " .$sp_f ." ><strong>Список файлов пользователя</strong></a>"."<br>");
-
-      } elseif ($this->arData[4] == 'f') {
-
-        $id_img = $row[1];
-        $sp_f = 'spisoki_'.$id_img;
-
-        printf("<p>Изображение: " .$row[0] ."</p>");
-
-        printf("<a href = " .$sp_f ." ><strong>Показать</strong></a>"."<br>");
-
-      } else {
-
-        $sp_f = 'photos/'.$row[0];
-
-        printf("<img src= " .$sp_f ." height = '420' >");
-
 
       }
 
+      while($row = mysqli_fetch_array($result));
     }
-
-    while($row = mysqli_fetch_array($result));
-
   }
 }
 ?>
