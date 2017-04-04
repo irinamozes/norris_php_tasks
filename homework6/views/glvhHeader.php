@@ -17,7 +17,7 @@
             <td>Пароль:</td>
             <td>
                 <label>
-                    <input type="text" name="password" required>
+                    <input type="password" name="password" required>
                 </label>
             </td>
         </tr>
