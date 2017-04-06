@@ -1,7 +1,7 @@
 <?php
 require_once   'vendor/autoload.php';
 include "config.php";
-
+if (isset($_POST['g-recaptcha-response'])) {
   $remoteIp = $_SERVER['REMOTE_ADDR'];
   $gRecaptchaResponse = $_REQUEST['g-recaptcha-response'];
   $recaptcha = new \ReCaptcha\ReCaptcha($secret);
@@ -24,3 +24,11 @@ include "config.php";
 
     exit();
   }
+} else {
+
+    echo "Не получено ответа от reCAPTCHA";
+    echo "<br>"."<a href='glavnaya'><strong>На главную</strong></a>"."<br>";
+    exit();
+
+}
+
