@@ -2,8 +2,15 @@
 //$posBegin = 3;
 //$siteKey = '';
 //$secret = '';
+
+//Ключи, которые давал Илья
 $siteKey = '6LcRmRgUAAAAACUsa5CmoGkL1ilhdR98on6Mmo11';
 $secret  = '6LcRmRgUAAAAAJc3a_Lw_lCFcsW3QxyJyBce_KkB';
+
+//Ключи, которые давал Игорь
+//$siteKey = "6LcMqhoTAAAAANkoVYs2ovAOissaMYGr4a3PjzQj"
+//$secret  = "6LcMqhoTAAAAAJ9nssS4b2Rh-0ggo3cYyJjCXSbZ"
+
 $lang    = 'ru';
 ?>
 

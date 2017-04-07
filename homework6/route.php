@@ -5,7 +5,7 @@ class Route {
 		public function start() {
 
     error_reporting (E_ALL);
-    require_once 'config.php';
+       //require_once 'config.php';
 
 		require_once 'controllers/controllerParent.php';
 		require_once 'views/view.php';
@@ -31,10 +31,10 @@ class Route {
 		}
 
 		if ($modul === 'glavnaya') {
-			setcookie("iduser", 0);
+		  setcookie("iduser", 0);
  		  setcookie("idimg", 0);
  		  setcookie("login", '');
-			setcookie("vhod", 'vihod');
+		  setcookie("vhod", 'vihod');
 	 }
 
 	 if ($modul === 'glvhod' || $modul === 'reregistraciya') {
