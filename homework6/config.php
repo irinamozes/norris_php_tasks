@@ -4,12 +4,17 @@
 //$secret = '';
 
 //Ключи, которые давал Илья
-$siteKey = '6LcRmRgUAAAAACUsa5CmoGkL1ilhdR98on6Mmo11';
-$secret  = '6LcRmRgUAAAAAJc3a_Lw_lCFcsW3QxyJyBce_KkB';
+//$siteKey = '6LcRmRgUAAAAACUsa5CmoGkL1ilhdR98on6Mmo11';
+//$secret  = '6LcRmRgUAAAAAJc3a_Lw_lCFcsW3QxyJyBce_KkB';
 
-//Ключи, которые давал Игорь
-//$siteKey = "6LcMqhoTAAAAANkoVYs2ovAOissaMYGr4a3PjzQj"
-//$secret  = "6LcMqhoTAAAAAJ9nssS4b2Rh-0ggo3cYyJjCXSbZ"
+
+//Ключи, полученные с https://www.google.com/recaptcha/admin для http://dz06.loftschool
+//$siteKey = "6LfVABwUAAAAAMDX4Z_sUKT7DAbKUgO1kcPBQOhE";
+//$secret  = "6LfVABwUAAAAAHsNW52UH3sSdHPcNPcNiNaeVYxK";
+
+//Ключи, полученные с https://www.google.com/recaptcha/admin  для localhost
+$siteKey = "6Lfv_xsUAAAAANTJgUmgZxqwfvlCMjmkNWNtTcPE";
+$secret  = "6Lfv_xsUAAAAADYffGx4uvzy0EAp5EtXRVzbZbV6";
 
 $lang    = 'ru';
 ?>
