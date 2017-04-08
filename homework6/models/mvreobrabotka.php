@@ -33,7 +33,7 @@ class Model {
 
           if ($uniq_info <= 0) {
             echo "Такой логин уже существует. Введите другой логин"."<br>";
-            echo "<a href='registraciya'><strong>Назад</strong></a>"."<br>";
+            echo "<a href='reregistraciya'><strong>Назад</strong></a>"."<br>";
             $connection->close();
             exit();
           }
