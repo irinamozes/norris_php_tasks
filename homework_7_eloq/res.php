@@ -8,7 +8,7 @@ $sp_fch = $_COOKIE["imresrotch"];
 $img = Image::make($sp_f);
 
 // now you are able to resize the instance
-$img->resize(480, 480);
+$img->resize(300, 225);
 
 
 $img->save($sp_fch);
