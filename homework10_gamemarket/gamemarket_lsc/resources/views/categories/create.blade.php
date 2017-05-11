@@ -25,6 +25,9 @@
                             </label>
                             <input type="submit" class="btn" value="Отправить">
                         </form>
+                        <div>
+    	                      <a href="/categories" class="btn">Назад </a>
+    	                  </div 
                     </div>
                 </div>
             </div>

@@ -16,8 +16,9 @@ class allgoodtable extends Seeder
             $good = new \App\Allgood();
             $good->goodname = $faker->name;
             $good->image = $faker->name;
-            $good->price = $faker->word;
-            $good->category_id = rand(1,10);
+            $good->price = $faker->numberBetween(3, 10);
+            $good->description = $faker->realText;
+            $good->category_id = rand(1,5);
             $good->save();
         }
     }

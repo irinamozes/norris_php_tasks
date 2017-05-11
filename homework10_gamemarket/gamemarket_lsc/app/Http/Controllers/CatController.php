@@ -2,11 +2,18 @@
 
 namespace App\Http\Controllers;
 use App\User;
+use App\Allgood;
+use App\allgood_order;
+use App\Category;
+use App\Order;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use League\Flysystem\Exception;
 
+use DB;
+use App\Http\Controllers\Controller;
 
 class CatController extends Controller
 {
@@ -14,22 +21,66 @@ class CatController extends Controller
   {
 
       $user = Auth::user();
+      $id = Auth::id();
+      $admin =  User::find($id)->admin;
 
-      if ($user->admin ) {
-          //редактировать
+      //$admin = Auth::admin();
+      //echo $id ."<br>";
+      //echo $admin ."<br>";
+      //dd($admin);
+
+
+      if ($admin == null or $admin == 0) {
+          //только просмотр и корзина
+          $categories = Category::all();
+          $data['categories'] = $categories;
+          return view('categories.indexv', $data);
       } else {
-        //только просмотр и корзина
+        $categories = Category::all();
+        $data['categories'] = $categories;
+        //dd($data['categories']);
+        return view('categories.index', $data);
+
       }
-
-      $categories = Category::all();
-      $data['categories'] = $categories;
-      return view('categories.index', $data);
   }
 
-  public function listgoods()
+  public function listgoods($cat_id)
+
   {
-      return view('categories.listgoods');
+
+    $user = Auth::user();
+    $id = Auth::id();
+    $admin =  User::find($id)->admin;
+
+    $cat_name = Category::find($cat_id)->name;
+    $allgoods = Allgood::where('category_id', '=', $cat_id)->get();
+
+    if (count($allgoods) == 0) {
+
+
+       $mess = ' ***  '.'В категории '. $cat_name .' нет товаров';
+       return redirect()->back()->with('message', $mess);
+
+     }
+        $data['allgoods'] = $allgoods->all();
+
+        session(['catname' => $cat_name]);
+        session(['catid' => $cat_id]);
+
+        if ($admin == null or $admin == 0) {
+            //только просмотр и корзина
+
+          return view('categories.listgoodsv', $data);
+
+        } else {
+
+          
+          return view('categories.listgoods', $data);
+
+        }
+
   }
+
 
   public function create()
   {
@@ -78,7 +129,8 @@ class CatController extends Controller
       $cat->catcharact = $request->catcharact;
       $cat->save();
 
-      return redirect('/categories/edit/'.$cat_id);
+      //return redirect('/categories/edit/'.$cat_id);
+      return redirect('/categories');
   }
 
   public function destroy($cat_id)
@@ -91,6 +143,5 @@ class CatController extends Controller
 
       return redirect('/categories');
   }
-
 
 }

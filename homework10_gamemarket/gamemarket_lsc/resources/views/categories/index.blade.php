@@ -1,6 +1,9 @@
 @extends('layouts.app')
 
 @section('content')
+@if(Session::has('message'))
+		{{Session::get('message')}}
+	@endif
     <div class="container">
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
@@ -14,15 +17,15 @@
                         @foreach ($categories as $cat)
                             <tr>
                               <td>
-                                  <form action="/categories/listgoods/{{$cat->id}}" method="get">
+                                  <form action="/categories/listgoods/{{$cat->id, $cat->name}}" method="get">
 
                                       <input type="submit" value="Раскрыть список товаров">
                                   </form>
                               </td>
 
-                                <td>{{$cat->name}}</td>
+                                <td align="center">{{$cat->name}}</td>
                                 <td>
-                                    <a href="/categories/edit/{{$cat->id}}" class="btn">Ред-вать категорию </a>
+                                    <a href="/categories/edit/{{$cat->id}}" class="btn"> Редактировать категорию </a>
                                 </td>
                                 <td>
                                     <form action="/categories/destroy/{{$cat->id}}" method="post">
