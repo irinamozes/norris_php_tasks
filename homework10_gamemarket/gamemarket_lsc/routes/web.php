@@ -37,5 +37,6 @@ Route::get('/goods/editv/{id}', 'GoodController@edit');
 Route::post('/goods/add/{id}', 'GoodController@add');
 Route::get('/goods/cart', 'GoodController@cart');
 Route::delete('/goods/destroy/{id}', 'GoodController@destroy');
-Route::any('/goods/ord/', 'GoodController@ord');
+Route::get('/goods/ord/', 'GoodController@ord');
 Route::get('/goods/listorders', 'GoodController@listorders');
+Route::get('/goods/ogoods/{id}', 'GoodController@ogoods');

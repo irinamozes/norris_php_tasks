@@ -99,7 +99,7 @@ class GoodController extends Controller
         $good->image = $request->image;
 
       }
-          
+
       $good->category_id = session('catid');
       $good->save();
 
@@ -229,5 +229,28 @@ class GoodController extends Controller
        return view('goods.listorders', $data);
 
     }
+
+    public function ogoods($ord_id) {
+
+      $user = Auth::user();
+      $id = Auth::id();
+
+      $allgood_orders = allgood_order::where('order_id', '=', $ord_id)->get();
+
+      if (count($allgood_orders) == 0) {
+
+
+         $mess = ' ***  '.'В этом заказе нет товаров';
+         return redirect()->back()->with('message', $mess);
+
+       }
+
+       $data['allgood_orders'] = $allgood_orders;
+       //dd($data['categories']);
+       return view('goods.ogoods', $data);
+
+    }
+
+
 
 }
