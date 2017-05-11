@@ -95,7 +95,11 @@ class GoodController extends Controller
       }
       $good->goodname = $request->goodname;
       $good->description = $request->description;
-      $good->image = $request->image;
+      if ($request->image) {
+        $good->image = $request->image;
+
+      }
+          
       $good->category_id = session('catid');
       $good->save();
 

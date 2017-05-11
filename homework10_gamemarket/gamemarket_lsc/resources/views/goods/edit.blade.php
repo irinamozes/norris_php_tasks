@@ -7,14 +7,15 @@
 
 $cat_id = session('catid');
 $cat_name = session('catname');
-$imgurl = '/gamemagaz/app/img/cover/'. $good->image;
+//$imgurl = '/gamemagaz/app/img/cover/'. $good->image;
 //$imgurl = $good->image;
 //dd(__DIR__);
 //dd($imgurl)
 //game-1.jpg
+$imgurl = asset('images/' .$good->image);
 ?>
 
-<img src= "<?php echo $imgurl ?>" height = 50>
+<img src= "<?php echo $imgurl ?>" height = 120 >
 
 <div class="container">
         <div class="row">
@@ -46,7 +47,7 @@ $imgurl = '/gamemagaz/app/img/cover/'. $good->image;
                                  Добавьте фотографию
 
                             <input type="hidden" name="MAX_FILE_SIZE" value="3145728" />
-                            <input type="file" name="image" id=""/>
+                            <input type="file" name="image" id="" value="{{$good->image}}"/>
                             </label>
 
                             <input type="submit" class="btn" value="Отправить">
