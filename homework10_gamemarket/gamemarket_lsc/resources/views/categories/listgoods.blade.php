@@ -32,7 +32,7 @@ $cat_name = session('catname');
 												<td>
 														<form action="" method="post">
 																{{csrf_field()}}
-																<!--{{method_field('DELETE')}}-->
+																
 																<input type="submit" value="Удалить" disabled="">
 
 									          </form>

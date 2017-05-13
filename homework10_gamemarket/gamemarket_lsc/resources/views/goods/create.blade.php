@@ -28,11 +28,10 @@ $cat_name = session('catname');
                             <label for="" class="input-group">
                                 название:
                                 <input type="text" name="goodname" value="{{old('goodname')}}">
-                            
+
                             <label for="" class="input-group">
                                 Описание
-
-                            <!--<input type="text" name="catcharact" value="{{old('catcharact')}}">-->
+                          
                             <textarea name="description" id="" cols="30" rows="10">{{old('description')}}</textarea>
                             </label>
 

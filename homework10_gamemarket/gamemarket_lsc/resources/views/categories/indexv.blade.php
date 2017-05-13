@@ -9,7 +9,15 @@
                 <div class="panel panel-default">
                     <div class="panel-heading">Категории</div>
 
-                    <div class="panel-body">
+										<div>
+												<a href="/goods/cart" class="btn">Просмотреть корзину и оформить заказ  </a>
+
+												<a href="/goods/listorders" class="btn">Список заказов пользователя</a>
+
+										</div>
+
+
+										<div class="panel-body">
                         <table>
                         @foreach ($categories as $cat)
                             <tr>

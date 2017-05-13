@@ -7,12 +7,9 @@
 
 $cat_id = session('catid');
 $cat_name = session('catname');
-//$imgurl = '/gamemagaz/app/img/cover/'. $good->image;
+
 $imgurl = asset('images/' .$good->image);
-//$imgurl = $good->image;
-//dd(__DIR__);
-//dd($imgurl)
-//game-1.jpg
+
 ?>
 
 <img src= "<?php echo $imgurl ?>" height = 120>

@@ -24,11 +24,6 @@ class CatController extends Controller
       $id = Auth::id();
       $admin =  User::find($id)->admin;
 
-      //$admin = Auth::admin();
-      //echo $id ."<br>";
-      //echo $admin ."<br>";
-      //dd($admin);
-
 
       if ($admin == null or $admin == 0) {
           //только просмотр и корзина
@@ -38,7 +33,7 @@ class CatController extends Controller
       } else {
         $categories = Category::all();
         $data['categories'] = $categories;
-        //dd($data['categories']);
+
         return view('categories.index', $data);
 
       }
@@ -48,17 +43,11 @@ class CatController extends Controller
 
   {
 
-    //dd($cat_id);
-
     $user = Auth::user();
     $id = Auth::id();
     $admin =  User::find($id)->admin;
 
-    //dd($cat_id);
-
-    //$catname = Category::find($cat_id)->first();
     $catname = Category::find($cat_id);
-//dd($catname->name);
 
     $allgoods = Allgood::where('category_id', '=', $cat_id)->get();
 
@@ -72,21 +61,21 @@ class CatController extends Controller
        $mess = ' ***  '.'В категории '. $cat_name .' нет товаров';
        return redirect()->back()->with('message', $mess);
 
-     }
-        $data['allgoods'] = $allgoods->all();
+    }
+    $data['allgoods'] = $allgoods->all();
 
 
-        if ($admin == null or $admin == 0) {
-            //только просмотр и корзина
+    if ($admin == null or $admin == 0) {
+      //только просмотр и корзина
 
-          return view('categories.listgoodsv', $data);
+      return view('categories.listgoodsv', $data);
 
-        } else {
+    } else {
 
 
-          return view('categories.listgoods', $data);
+      return view('categories.listgoods', $data);
 
-        }
+    }
 
   }
 
@@ -98,59 +87,57 @@ class CatController extends Controller
 
   public function store(Request $request)
   {
-      $this->validate($request, [
-         'name' => 'required|min:5',
+    $this->validate($request, [
+      'name' => 'required|min:5',
          'catcharact' => 'required|min:10',
-      ]);
-      $cat = new Category();
-      $cat->name = $request->name;
-      $cat->catcharact = $request->catcharact;
-      $cat->save();
+    ]);
+    $cat = new Category();
+    $cat->name = $request->name;
+    $cat->catcharact = $request->catcharact;
+    $cat->save();
 
-      return redirect('/categories');
+    return redirect('/categories');
   }
 
   public function edit($cat_id)
   {
-      try {
-          $cat = Category::findOrFail($cat_id);
-      } catch (Exception $e) {
-          return abort(404);
-      }
+    try {
+      $cat = Category::findOrFail($cat_id);
+    } catch (Exception $e) {
+      return abort(404);
+    }
 
-      $data['cat'] = $cat;
-      return view('categories.edit', $data);
+    $data['cat'] = $cat;
+    return view('categories.edit', $data);
   }
 
   public function update(Request $request, $cat_id)
   {
-      $this->validate($request, [
-          'name' => 'required|min:5',
-          'catcharact' => 'required|min:10',
-      ]);
-      try {
-          $cat = Category::findOrFail($cat_id);
-      }
-      catch (Exception $e) {
-          return abort(404);
-      }
-      $cat->name = $request->name;
-      $cat->catcharact = $request->catcharact;
-      $cat->save();
+    $this->validate($request, [
+     'name' => 'required|min:5',
+     'catcharact' => 'required|min:10',
+    ]);
+    try {
+      $cat = Category::findOrFail($cat_id);
+    } catch (Exception $e) {
+      return abort(404);
+    }
+    $cat->name = $request->name;
+    $cat->catcharact = $request->catcharact;
+    $cat->save();
 
-      //return redirect('/categories/edit/'.$cat_id);
-      return redirect('/categories');
+    return redirect('/categories');
   }
 
   public function destroy($cat_id)
   {
-      try {
-          Category::destroy($cat_id);
-      } catch (Exception $e) {
-          return abort(404);
-      }
+    try {
+      Category::destroy($cat_id);
+    } catch (Exception $e) {
+      return abort(404);
+    }
 
-      return redirect('/categories');
+    return redirect('/categories');
   }
 
 }

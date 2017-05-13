@@ -29,7 +29,7 @@
 
                         </table>
                         <div>
-                            <a href="/categories/listgoodsv/{{session('catid')}}" class="btn">Назад </a>
+														<a href="/categories/indexv/" class="btn">Назад </a>
                         </div>
 
                     </div>

@@ -21,240 +21,211 @@ use App\Http\Controllers\Controller;
 class GoodController extends Controller
 {
 
-
   public function create()
   {
     $user = Auth::user();
     $id = Auth::id();
     $admin =  User::find($id)->admin;
-      return view('goods.create');
+    return view('goods.create');
   }
 
   public function store(Request $request)
   {
 
-      $this->validate($request, [
-         'goodname' => 'required|min:5',
-         'description' => 'required|min:10',
-      ]);
-      $good = new Allgood();
-      $good->goodname = $request->goodname;
-      $good->description = $request->description;
-      $good->image = $request->image;
-      $good->category_id = session('catid');
-      $good->save();
+    $this->validate($request, [
+      'goodname' => 'required|min:5',
+      'description' => 'required|min:10',
+    ]);
+    $good = new Allgood();
+    $good->goodname = $request->goodname;
+    $good->description = $request->description;
+    $good->image = $request->image;
+    $good->category_id = session('catid');
+    $good->save();
 
-      //return redirect()->back();
-      $redir = '/categories/listgoods/' .session('catid');
-      return redirect($redir);
+    $redir = '/categories/listgoods/' .session('catid');
+    return redirect($redir);
   }
 
   public function edit($good_id)
   {
-     $user = Auth::user();
-     $id = Auth::id();
-     $admin =  User::find($id)->admin;
+    $user = Auth::user();
+    $id = Auth::id();
+    $admin =  User::find($id)->admin;
 
-      try {
+    try {
         $good = Allgood::findOrFail($good_id);
-      } catch (Exception $e) {
-          return abort(404);
-      }
+    } catch (Exception $e) {
+      return abort(404);
+    }
 
-      $data['good'] = $good;
-      //session(['catname' => $cat_name]);
-      //session(['catid' => $cat_id]);
+    $data['good'] = $good;
 
-      if ($admin == null or $admin == 0) {
+    if ($admin == null or $admin == 0) {
           //только просмотр и корзина
 
-        return view('goods.editv', $data);
+      return view('goods.editv', $data);
 
-      } else {
+    } else {
 
+      return view('goods.edit', $data);
 
-        return view('goods.edit', $data);
+    }
 
-      }
-
-
-      //return view('goods.edit', $data);
   }
 
   public function update(Request $request, $good_id)
   {
-      $this->validate($request, [
-          'goodname' => 'required|min:5',
-          'description' => 'required|min:10',
-      ]);
-      try {
+    $this->validate($request, [
+
+      'goodname' => 'required|min:5',
+      'description' => 'required|min:10',
+    ]);
+
+    try {
           $good = Allgood::findOrFail($good_id);
-      }
-      catch (Exception $e) {
-          return abort(404);
-      }
-      $good->goodname = $request->goodname;
-      $good->description = $request->description;
-      if ($request->image) {
-        $good->image = $request->image;
+    } catch (Exception $e) {
+      return abort(404);
+    }
+    $good->goodname = $request->goodname;
+    $good->description = $request->description;
+    if ($request->image) {
+      $good->image = $request->image;
 
-      }
+    }
 
-      $good->category_id = session('catid');
-      $good->save();
+    $good->category_id = session('catid');
+    $good->save();
 
-      //return redirect('/categories');
-      $redir = '/categories/listgoods/' .session('catid');
-      return redirect($redir);
+    $redir = '/categories/listgoods/' .session('catid');
+    return redirect($redir);
   }
-
 
 
   public function add(Request $request, $good_id)
   {
 
-      $user = Auth::user();
-      $id = Auth::id();
+    $user = Auth::user();
+    $id = Auth::id();
 
-      $good = new Good();
-      $good->goodname = $request->goodname;
-      //dd($request->goodname);
-      //dd($good_id);
-      $good->allgood_id = $good_id;
-      $good->user_id = $id;
-      $good->save();
+    $good = new Good();
+    $good->goodname = $request->goodname;
+    $good->allgood_id = $good_id;
+    $good->user_id = $id;
+    $good->save();
 
-      //return redirect()->back();
-      //$redir = '/goods/editv/' .$good_id;
-      $redir = '/categories/listgoodsv/' .session('catid');
+    $redir = '/categories/listgoodsv/' .session('catid');
       return redirect($redir);
   }
 
 
-
   public function cart()
   {
+    $user = Auth::user();
+    $id = Auth::id();
+    $admin =  User::find($id)->admin;
 
-      $user = Auth::user();
-      $id = Auth::id();
-      $admin =  User::find($id)->admin;
+    $goods = Good::where('user_id', '=', $id)->get();
 
-      //$admin = Auth::admin();
-      //echo $id ."<br>";
-      //echo $admin ."<br>";
-      //dd($admin);
+    if (count($goods) == 0) {
 
-        $goods = Good::where('user_id', '=', $id)->get();
-
-        if (count($goods) == 0) {
-
-
-           $mess = ' ***  '.'В корзине нет товаров';
-           return redirect()->back()->with('message', $mess);
-
-         }
-
-        $data['goods'] = $goods;
-        //dd($data['categories']);
-        return view('goods.cart', $data);
+      $mess = ' ***  '.'В корзине нет товаров';
+      return redirect()->back()->with('message', $mess);
 
     }
 
-    public function destroy($goo_id)
-    {
-        try {
-            Good::destroy($goo_id);
-        } catch (Exception $e) {
-            return abort(404);
-        }
+    $data['goods'] = $goods;
+    return view('goods.cart', $data);
 
-        return redirect('/goods/cart');
+  }
+
+
+  public function destroy($goo_id)
+  {
+    try {
+      Good::destroy($goo_id);
+    } catch (Exception $e) {
+      return abort(404);
     }
 
-    public function ord()
-    {
-
-      $user = Auth::user();
-      $id = Auth::id();
-
-      $goods = Good::where('user_id', '=', $id)->get();
-
-      if (count($goods) == 0) {
+    return redirect('/goods/cart');
+  }
 
 
-         $mess = ' ***  '.'В корзине нет товаров';
-         return redirect()->back()->with('message', $mess);
+  public function ord()
+  {
+    $user = Auth::user();
+    $id = Auth::id();
 
-       }
+    $goods = Good::where('user_id', '=', $id)->get();
 
-       $order = new Order();
-       $order->user_id = $id;
-       $order->save();
+    if (count($goods) == 0) {
 
-       $order_id = $order->id;
-
-       foreach ($goods as $goo) {
-
-         $g_o = new allgood_order();
-         $g_o->allgood_id =  $goo->allgood_id;
-         $g_o->goodname =  $goo->goodname;
-         $g_o->order_id =  $order_id;
-         $g_o->save();
-
-       }
-
-        $g_d = Good::where('user_id', '=', $id)->delete();
-
-        return redirect('/categories/indexv');
-        //return redirect("/categories/listgoodsv/{{session('catid')}}");
-        //return view('categories.listgoodsv', session('catid'));
-        //return view('categories.listgoodsv');
-
+      $mess = ' ***  '.'В корзине нет товаров';
+      return redirect()->back()->with('message', $mess);
 
     }
 
-    public function listorders() {
+    $order = new Order();
+    $order->user_id = $id;
+    $order->save();
 
-      $user = Auth::user();
-      $id = Auth::id();
+    $order_id = $order->id;
 
-      $orders = Order::where('user_id', '=', $id)->get();
+    foreach ($goods as $goo) {
 
-      if (count($orders) == 0) {
-
-
-         $mess = ' ***  '.'У пользователя  нет оформленных заказов';
-         return redirect()->back()->with('message', $mess);
-
-       }
-
-       $data['orders'] = $orders;
-       //dd($data['categories']);
-       return view('goods.listorders', $data);
+      $g_o = new allgood_order();
+      $g_o->allgood_id =  $goo->allgood_id;
+      $g_o->goodname =  $goo->goodname;
+      $g_o->order_id =  $order_id;
+      $g_o->save();
 
     }
 
-    public function ogoods($ord_id) {
+    $g_d = Good::where('user_id', '=', $id)->delete();
 
-      $user = Auth::user();
-      $id = Auth::id();
+    return redirect('/categories/indexv');
 
-      $allgood_orders = allgood_order::where('order_id', '=', $ord_id)->get();
+  }
 
-      if (count($allgood_orders) == 0) {
+  public function listorders() {
 
+    $user = Auth::user();
+    $id = Auth::id();
 
-         $mess = ' ***  '.'В этом заказе нет товаров';
-         return redirect()->back()->with('message', $mess);
+    $orders = Order::where('user_id', '=', $id)->get();
 
-       }
+    if (count($orders) == 0) {
 
-       $data['allgood_orders'] = $allgood_orders;
-       //dd($data['categories']);
-       return view('goods.ogoods', $data);
+      $mess = ' ***  '.'У пользователя  нет оформленных заказов';
+      return redirect()->back()->with('message', $mess);
 
     }
 
+    $data['orders'] = $orders;
 
+    return view('goods.listorders', $data);
+
+  }
+
+
+  public function ogoods($ord_id) {
+
+    $user = Auth::user();
+    $id = Auth::id();
+
+    $allgood_orders = allgood_order::where('order_id', '=', $ord_id)->get();
+
+    if (count($allgood_orders) == 0) {
+
+      $mess = ' ***  '.'В этом заказе нет товаров';
+      return redirect()->back()->with('message', $mess);
+
+    }
+
+    $data['allgood_orders'] = $allgood_orders;
+    return view('goods.ogoods', $data);
+
+  }
 
 }
