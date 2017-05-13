@@ -205,7 +205,11 @@ class GoodController extends Controller
 
         $g_d = Good::where('user_id', '=', $id)->delete();
 
-        return redirect('/goods/cart');
+        return redirect('/categories/indexv');
+        //return redirect("/categories/listgoodsv/{{session('catid')}}");
+        //return view('categories.listgoodsv', session('catid'));
+        //return view('categories.listgoodsv');
+
 
     }
 

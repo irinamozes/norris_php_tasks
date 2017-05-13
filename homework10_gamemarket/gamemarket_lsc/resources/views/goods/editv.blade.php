@@ -7,14 +7,15 @@
 
 $cat_id = session('catid');
 $cat_name = session('catname');
-$imgurl = '/gamemagaz/app/img/cover/'. $good->image;
+//$imgurl = '/gamemagaz/app/img/cover/'. $good->image;
+$imgurl = asset('images/' .$good->image);
 //$imgurl = $good->image;
 //dd(__DIR__);
 //dd($imgurl)
 //game-1.jpg
 ?>
 
-<img src= "<?php echo $imgurl ?>" height = 50>
+<img src= "<?php echo $imgurl ?>" height = 120>
 
 <div class="container">
         <div class="row">
@@ -32,7 +33,7 @@ $imgurl = '/gamemagaz/app/img/cover/'. $good->image;
                             {{csrf_field()}}
                             <label for="" class="input-group">
                                 название:
-                              <input type="text" name="goodname" value="{{$good->goodname}}" hidden="true">   
+                              <input type="text" name="goodname" value="{{$good->goodname}}" hidden="true">
 
                                 <input type="text" name="goodname" value="{{$good->goodname}}" disabled="">
 

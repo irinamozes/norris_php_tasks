@@ -48,15 +48,26 @@ class CatController extends Controller
 
   {
 
+    //dd($cat_id);
+
     $user = Auth::user();
     $id = Auth::id();
     $admin =  User::find($id)->admin;
 
-    $cat_name = Category::find($cat_id)->name;
+    //dd($cat_id);
+
+    //$catname = Category::find($cat_id)->first();
+    $catname = Category::find($cat_id);
+//dd($catname->name);
+
     $allgoods = Allgood::where('category_id', '=', $cat_id)->get();
 
-    if (count($allgoods) == 0) {
+    $cat_name =  $catname->name;
 
+    session(['catname' => $cat_name]);
+    session(['catid' => $cat_id]);
+
+    if (count($allgoods) == 0) {
 
        $mess = ' ***  '.'В категории '. $cat_name .' нет товаров';
        return redirect()->back()->with('message', $mess);
@@ -64,8 +75,6 @@ class CatController extends Controller
      }
         $data['allgoods'] = $allgoods->all();
 
-        session(['catname' => $cat_name]);
-        session(['catid' => $cat_id]);
 
         if ($admin == null or $admin == 0) {
             //только просмотр и корзина
@@ -74,7 +83,7 @@ class CatController extends Controller
 
         } else {
 
-          
+
           return view('categories.listgoods', $data);
 
         }
